@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace modul6_1302223027
         private string userName;
        public  SayaTubeUser(string userName)
         {
+            Debug.Assert(userName.Length < 100);
+            Debug.Assert(!string.IsNullOrEmpty(userName));
             this.userName = userName;  
             uploadedVideos = new List<SayaTubeVideo>();
             Random random = new Random();
@@ -33,6 +36,8 @@ namespace modul6_1302223027
 
         public void AddVideo(SayaTubeVideo video)
         {
+            Debug.Assert(video != null);
+            Debug.Assert(video.getPlayCount()<int.MaxValue);
             uploadedVideos.Add(video); 
         }
 
@@ -40,10 +45,12 @@ namespace modul6_1302223027
             
         {
             Console.WriteLine("user name: " + this.userName);
-            for (int i = 0; i < uploadedVideos.Count; i++)
+            for (int i = 0; i < uploadedVideos.Count ; i++)
             {
+
                 Console.WriteLine("video "+(i+1)+" "+this.uploadedVideos[i].getTitle());
                 Console.WriteLine("play count: " + this.uploadedVideos[i].getPlayCount());
+                Debug.Assert(i < 7,"lebih dari 8");
             }
         }
     }

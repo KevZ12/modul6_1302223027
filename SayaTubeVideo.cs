@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,9 @@ namespace modul6_1302223027
 
         public SayaTubeVideo(string title)
         {
-           
+            Debug.Assert(title.Length < 200);
+            Debug.Assert(!string.IsNullOrEmpty(title));
+
             Random random = new Random();
             this.Title = title;
             this.playCount = 0;
@@ -25,10 +28,21 @@ namespace modul6_1302223027
         }
         public void IncreasePlayCount(int playCount)
         {
+            Debug.Assert(playCount>0 && playCount <= 25_000_000);
 
-         
-
+            try
+            {
+                checked
+                {
                     this.playCount += playCount;
+                }
+            } catch (Exception ex) 
+            {
+                
+                Console.WriteLine(ex.Message);
+            }
+
+           
 
         }
         public void PrintVideoDetail()
